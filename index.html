@@ -202,7 +202,7 @@
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 
-                if (isSubmitting) return; // Prevent double submission
+                if (isSubmitting) return;
                 isSubmitting = true;
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Enviando...';
@@ -210,6 +210,11 @@
                 const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSc7JHGVhhMp1D8cnZIQXHbAcMMD_u8IR8uF5-Oy2svwMLnSCg/formResponse";
                 
                 const formData = new FormData(form);
+
+                // CORRECCIÓN: Asegurarse de que el campo condicional se envíe incluso si está oculto.
+                if (!formData.has('entry.1222375695')) {
+                    formData.append('entry.1222375695', 'No Aplica');
+                }
 
                 fetch(googleFormUrl, {
                     method: 'POST',
@@ -227,11 +232,14 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // Re-enable form if submission fails
                     isSubmitting = false;
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Enviar Respuestas';
-                    alert('Hubo un error al enviar la encuesta. Por favor, inténtalo de nuevo.');
+                    // Usamos un div para el mensaje de error en lugar de alert()
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg';
+                    errorDiv.textContent = 'Hubo un error al enviar la encuesta. Por favor, inténtalo de nuevo.';
+                    form.appendChild(errorDiv);
                 });
             });
             
