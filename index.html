@@ -65,10 +65,7 @@
                 <p class="text-slate-300 text-sm sm:text-base">Hola, buen día 😊 Nos gustaría hacerte unas breves preguntas para conocer tu experiencia. Solo te tomará un par de minutos:</p>
             </div>
 
-            <form id="survey-form" class="space-y-8" 
-                  action="https://docs.google.com/forms/d/e/1FAIpQLSc7JHGVhhMp1D8cnZIQXHbAcMMD_u8IR8uF5-Oy2svwMLnSCg/formResponse"
-                  method="POST"
-                  target="hidden_iframe">
+            <form id="survey-form" class="space-y-8">
                 
                 <section>
                     <label for="full-name" class="block text-base font-semibold text-slate-200 mb-2">¿Podrías compartirnos tu nombre completo, por favor?</label>
@@ -141,8 +138,6 @@
         </div>
     </main>
 
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('survey-form');
@@ -156,14 +151,15 @@
 
             const handleIsWorkingChange = () => {
                 const isWorkingYes = document.getElementById('trabaja-si').checked;
+                const prestacionesRadios = document.getElementsByName('entry.1222375695');
                 if (isWorkingYes) {
                     prestacionesQuestion.classList.remove('hidden');
                     prestacionesQuestion.style.maxHeight = prestacionesQuestion.scrollHeight + "px";
-                    document.getElementsByName('entry.1222375695').forEach(radio => radio.required = true);
+                    prestacionesRadios.forEach(radio => radio.required = true);
                 } else {
                     prestacionesQuestion.classList.add('hidden');
                     prestacionesQuestion.style.maxHeight = null;
-                    document.getElementsByName('entry.1222375695').forEach(radio => {
+                    prestacionesRadios.forEach(radio => {
                         radio.checked = false;
                         radio.required = false;
                     });
@@ -172,7 +168,7 @@
             };
 
             const validateForm = () => {
-                let isValid = form.checkValidity();
+                const isValid = form.checkValidity();
                 submitBtn.disabled = !isValid;
             };
 
@@ -180,35 +176,40 @@
             form.addEventListener('input', validateForm);
             form.addEventListener('change', validateForm);
 
-            const iframe = document.getElementById('hidden_iframe');
-            let formSubmitted = false;
-            iframe.onload = function() {
-                if (formSubmitted) {
-                    console.log('Formulario enviado a Google Sheets');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                if (isSubmitting || !form.checkValidity()) return;
+
+                isSubmitting = true;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enviando...';
+                
+                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSc7JHGVhhMp1D8cnZIQXHbAcMMD_u8IR8uF5-Oy2svwMLnSCg/formResponse";
+                
+                const formData = new FormData(form);
+
+                fetch(googleFormUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                })
+                .then(() => {
+                    console.log('Formulario enviado a Google Sheets.');
                     surveyContainer.classList.add('opacity-0');
                     setTimeout(() => {
                         surveyContainer.classList.add('hidden');
                         thankYouContainer.classList.remove('hidden');
                         thankYouContainer.classList.remove('opacity-0');
                     }, 500);
-                }
-            };
-
-            form.addEventListener('submit', (e) => {
-                if (!form.checkValidity()) {
-                    e.preventDefault();
-                    return;
-                }
-                
-                if (isSubmitting) {
-                    e.preventDefault();
-                    return;
-                };
-
-                isSubmitting = true;
-                formSubmitted = true;
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Enviando...';
+                })
+                .catch(error => {
+                    console.error('Error de red:', error);
+                    isSubmitting = false;
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar Respuestas';
+                    alert('Hubo un error al enviar la encuesta. Por favor, revisa tu conexión a internet.');
+                });
             });
             
             validateForm();
