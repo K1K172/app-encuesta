@@ -65,7 +65,10 @@
                 <p class="text-slate-300 text-sm sm:text-base">Hola, buen día 😊 Nos gustaría hacerte unas breves preguntas para conocer tu experiencia. Solo te tomará un par de minutos:</p>
             </div>
 
-            <form id="survey-form" class="space-y-8">
+            <form id="survey-form" class="space-y-8" 
+                  action="https://docs.google.com/forms/d/e/1FAIpQLSc7JHGVhhMp1D8cnZIQXHbAcMMD_u8IR8uF5-Oy2svwMLnSCg/formResponse"
+                  method="POST"
+                  target="hidden_iframe">
                 
                 <section>
                     <label for="full-name" class="block text-base font-semibold text-slate-200 mb-2">¿Podrías compartirnos tu nombre completo, por favor?</label>
@@ -138,6 +141,8 @@
         </div>
     </main>
 
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('survey-form');
@@ -167,31 +172,7 @@
             };
 
             const validateForm = () => {
-                const formData = new FormData(form);
-                let isValid = true;
-                
-                const requiredFields = [
-                    'entry.624602581', 
-                    'entry.742701928', 
-                    'entry.719568298', 
-                    'entry.1650659478'
-                ];
-                if (document.getElementById('trabaja-si').checked) {
-                    requiredFields.push('entry.1222375695');
-                }
-
-                for (const fieldName of requiredFields) {
-                    const value = formData.get(fieldName);
-                    if (!value) {
-                        isValid = false;
-                        break;
-                    }
-                }
-                
-                if (document.getElementsByName('entry.624602581')[0].value.trim() === '') {
-                    isValid = false;
-                }
-
+                let isValid = form.checkValidity();
                 submitBtn.disabled = !isValid;
             };
 
@@ -199,34 +180,10 @@
             form.addEventListener('input', validateForm);
             form.addEventListener('change', validateForm);
 
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                if (isSubmitting) return;
-                isSubmitting = true;
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Enviando...';
-                
-                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSc7JHGVhhMp1D8cnZIQXHbAcMMD_u8IR8uF5-Oy2svwMLnSCg/formResponse";
-                
-                const formData = new FormData(form);
-                
-                const params = new URLSearchParams();
-                for (const pair of formData.entries()) {
-                    if (pair[1]) {
-                        params.append(pair[0], pair[1]);
-                    }
-                }
-
-                fetch(googleFormUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: params.toString()
-                })
-                .then(() => {
+            const iframe = document.getElementById('hidden_iframe');
+            let formSubmitted = false;
+            iframe.onload = function() {
+                if (formSubmitted) {
                     console.log('Formulario enviado a Google Sheets');
                     surveyContainer.classList.add('opacity-0');
                     setTimeout(() => {
@@ -234,17 +191,24 @@
                         thankYouContainer.classList.remove('hidden');
                         thankYouContainer.classList.remove('opacity-0');
                     }, 500);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    isSubmitting = false;
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Enviar Respuestas';
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg';
-                    errorDiv.textContent = 'Hubo un error al enviar la encuesta. Por favor, inténtalo de nuevo.';
-                    form.appendChild(errorDiv);
-                });
+                }
+            };
+
+            form.addEventListener('submit', (e) => {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    return;
+                }
+                
+                if (isSubmitting) {
+                    e.preventDefault();
+                    return;
+                };
+
+                isSubmitting = true;
+                formSubmitted = true;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enviando...';
             });
             
             validateForm();
