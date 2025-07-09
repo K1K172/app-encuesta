@@ -78,7 +78,7 @@
                         <input type="radio" id="trabaja-si" name="entry.742701928" value="Si" class="hidden form-radio" required>
                         <label for="trabaja-si" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">✅ Sí</label>
                         
-                        <input type="radio" id="trabaja-no" name="entry.742701928" value="No" class="hidden form-radio">
+                        <input type="radio" id="trabaja-no" name="entry.742701928" value="No" class="hidden form-radio" required>
                         <label for="trabaja-no" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">❌ No</label>
                     </div>
                 </section>
@@ -100,7 +100,7 @@
                         <input type="radio" id="cursos-empleo-si" name="entry.719568298" value="Si" class="hidden form-radio" required>
                         <label for="cursos-empleo-si" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">✅ Sí</label>
                         
-                        <input type="radio" id="cursos-empleo-no" name="entry.719568298" value="No" class="hidden form-radio">
+                        <input type="radio" id="cursos-empleo-no" name="entry.719568298" value="No" class="hidden form-radio" required>
                         <label for="cursos-empleo-no" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">❌ No</label>
                     </div>
                 </section>
@@ -112,16 +112,16 @@
                         <input type="radio" id="util-1" name="entry.1650659478" value="1" class="hidden form-radio" required>
                         <label for="util-1" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">1️⃣</label>
                         
-                        <input type="radio" id="util-2" name="entry.1650659478" value="2" class="hidden form-radio">
+                        <input type="radio" id="util-2" name="entry.1650659478" value="2" class="hidden form-radio" required>
                         <label for="util-2" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">2️⃣</label>
                         
-                        <input type="radio" id="util-3" name="entry.1650659478" value="3" class="hidden form-radio">
+                        <input type="radio" id="util-3" name="entry.1650659478" value="3" class="hidden form-radio" required>
                         <label for="util-3" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">3️⃣</label>
                         
-                        <input type="radio" id="util-4" name="entry.1650659478" value="4" class="hidden form-radio">
+                        <input type="radio" id="util-4" name="entry.1650659478" value="4" class="hidden form-radio" required>
                         <label for="util-4" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">4️⃣</label>
                         
-                        <input type="radio" id="util-5" name="entry.1650659478" value="5" class="hidden form-radio">
+                        <input type="radio" id="util-5" name="entry.1650659478" value="5" class="hidden form-radio" required>
                         <label for="util-5" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">5️⃣</label>
                     </div>
                 </section>
@@ -211,12 +211,8 @@
                 
                 const formData = new FormData(form);
                 
-                // CORRECCIÓN FINAL: Construir los parámetros manualmente para el envío.
-                // Esto asegura que los campos no respondidos (ocultos) no se envíen,
-                // que es el comportamiento que Google Forms espera.
                 const params = new URLSearchParams();
                 for (const pair of formData.entries()) {
-                    // Solo añade el par si el valor no está vacío (para los radios no seleccionados)
                     if (pair[1]) {
                         params.append(pair[0], pair[1]);
                     }
