@@ -211,9 +211,9 @@
                 
                 const formData = new FormData(form);
 
-                // CORRECCIÓN: Asegurarse de que el campo condicional se envíe incluso si está oculto.
+                // CORRECCIÓN: Asegurarse de que el campo condicional se envíe con un valor vacío si está oculto.
                 if (!formData.has('entry.1222375695')) {
-                    formData.append('entry.1222375695', 'No Aplica');
+                    formData.append('entry.1222375695', '');
                 }
 
                 fetch(googleFormUrl, {
