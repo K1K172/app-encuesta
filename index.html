@@ -69,16 +69,16 @@
                 
                 <section>
                     <label for="full-name" class="block text-base font-semibold text-slate-200 mb-2">¿Podrías compartirnos tu nombre completo, por favor?</label>
-                    <input type="text" id="full-name" name="entry.624602581" class="w-full px-4 py-2 bg-white border border-slate-300 text-slate-800 rounded-lg transition brand-input-focus placeholder:text-slate-500" placeholder="Tu nombre aquí..." required>
+                    <input type="text" id="full-name" name="fullName" class="w-full px-4 py-2 bg-white border border-slate-300 text-slate-800 rounded-lg transition brand-input-focus placeholder:text-slate-500" placeholder="Tu nombre aquí..." required>
                 </section>
 
                 <section>
                     <label class="block text-base font-semibold text-slate-200 mb-3">¿Actualmente estás trabajando?</label>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="radio" id="trabaja-si" name="entry.742701928" value="Si" class="hidden form-radio" required>
+                        <input type="radio" id="trabaja-si" name="isWorking" value="Si" class="hidden form-radio" required>
                         <label for="trabaja-si" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">✅ Sí</label>
                         
-                        <input type="radio" id="trabaja-no" name="entry.742701928" value="No" class="hidden form-radio" required>
+                        <input type="radio" id="trabaja-no" name="isWorking" value="No" class="hidden form-radio" required>
                         <label for="trabaja-no" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">❌ No</label>
                     </div>
                 </section>
@@ -86,10 +86,10 @@
                 <section id="prestaciones-question" class="hidden transition-all duration-500 ease-in-out">
                     <label class="block text-base font-semibold text-slate-200 mb-3">¿Cuentas con todas las prestaciones de ley?</label>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="radio" id="prestaciones-si" name="entry.1222375695" value="Si" class="hidden form-radio">
+                        <input type="radio" id="prestaciones-si" name="hasBenefits" value="Si" class="hidden form-radio">
                         <label for="prestaciones-si" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">✅ Sí</label>
                         
-                        <input type="radio" id="prestaciones-no" name="entry.1222375695" value="No" class="hidden form-radio">
+                        <input type="radio" id="prestaciones-no" name="hasBenefits" value="No" class="hidden form-radio">
                         <label for="prestaciones-no" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">❌ No</label>
                     </div>
                 </section>
@@ -97,10 +97,10 @@
                 <section>
                     <label class="block text-base font-semibold text-slate-200 mb-3">¿Consideras que los cursos de certificación y/o derechos laborales que tomaste fueron útiles para que obtuvieras empleo?</label>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="radio" id="cursos-empleo-si" name="entry.719568298" value="Si" class="hidden form-radio" required>
+                        <input type="radio" id="cursos-empleo-si" name="coursesHelpedEmployment" value="Si" class="hidden form-radio" required>
                         <label for="cursos-empleo-si" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">✅ Sí</label>
                         
-                        <input type="radio" id="cursos-empleo-no" name="entry.719568298" value="No" class="hidden form-radio" required>
+                        <input type="radio" id="cursos-empleo-no" name="coursesHelpedEmployment" value="No" class="hidden form-radio" required>
                         <label for="cursos-empleo-no" class="form-radio-label cursor-pointer text-center py-3 px-4 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">❌ No</label>
                     </div>
                 </section>
@@ -109,19 +109,19 @@
                     <label class="block text-base font-semibold text-slate-200 mb-2">En una escala del 1 al 5, ¿qué tan útiles te parecieron los cursos de certificación y/o derechos laborales que tomaste?</label>
                     <p class="text-sm text-slate-400 mb-3">(1 = nada útiles, 5 = muy útiles)</p>
                     <div class="grid grid-cols-5 gap-2 sm:gap-3">
-                        <input type="radio" id="util-1" name="entry.1650659478" value="1" class="hidden form-radio" required>
+                        <input type="radio" id="util-1" name="courseUsefulness" value="1" class="hidden form-radio" required>
                         <label for="util-1" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">1️⃣</label>
                         
-                        <input type="radio" id="util-2" name="entry.1650659478" value="2" class="hidden form-radio" required>
+                        <input type="radio" id="util-2" name="courseUsefulness" value="2" class="hidden form-radio" required>
                         <label for="util-2" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">2️⃣</label>
                         
-                        <input type="radio" id="util-3" name="entry.1650659478" value="3" class="hidden form-radio" required>
+                        <input type="radio" id="util-3" name="courseUsefulness" value="3" class="hidden form-radio" required>
                         <label for="util-3" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">3️⃣</label>
                         
-                        <input type="radio" id="util-4" name="entry.1650659478" value="4" class="hidden form-radio" required>
+                        <input type="radio" id="util-4" name="courseUsefulness" value="4" class="hidden form-radio" required>
                         <label for="util-4" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">4️⃣</label>
                         
-                        <input type="radio" id="util-5" name="entry.1650659478" value="5" class="hidden form-radio" required>
+                        <input type="radio" id="util-5" name="courseUsefulness" value="5" class="hidden form-radio" required>
                         <label for="util-5" class="form-radio-label cursor-pointer text-center py-3 px-2 bg-white border border-slate-300 text-slate-800 rounded-lg font-medium hover:bg-slate-100 hover:border-slate-400">5️⃣</label>
                     </div>
                 </section>
@@ -151,7 +151,7 @@
 
             const handleIsWorkingChange = () => {
                 const isWorkingYes = document.getElementById('trabaja-si').checked;
-                const prestacionesRadios = document.getElementsByName('entry.1222375695');
+                const prestacionesRadios = document.getElementsByName('hasBenefits');
                 if (isWorkingYes) {
                     prestacionesQuestion.classList.remove('hidden');
                     prestacionesQuestion.style.maxHeight = prestacionesQuestion.scrollHeight + "px";
@@ -172,7 +172,7 @@
                 submitBtn.disabled = !isValid;
             };
 
-            document.getElementsByName('entry.742701928').forEach(radio => radio.addEventListener('change', handleIsWorkingChange));
+            document.getElementsByName('isWorking').forEach(radio => radio.addEventListener('change', handleIsWorkingChange));
             form.addEventListener('input', validateForm);
             form.addEventListener('change', validateForm);
 
@@ -185,17 +185,24 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Enviando...';
                 
-                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSc7JHGVhhMp1D8cnZIQXHbAcMMD_u8IR8uF5-Oy2svwMLnSCg/formResponse";
+                const webAppUrl = "https://script.google.com/macros/s/AKfycbz7bxDGuXn4YaBBANRbugOevw8RScAExUlZXxAtZPDR5zCVlwtOY8axadjhywYO-lTS/exec";
                 
                 const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
 
-                fetch(googleFormUrl, {
+                fetch(webAppUrl, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    body: formData
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                    },
+                    body: JSON.stringify(data)
                 })
-                .then(() => {
-                    console.log('Formulario enviado a Google Sheets.');
+                .then(res => res.json())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                    isSubmitting = false;
                     surveyContainer.classList.add('opacity-0');
                     setTimeout(() => {
                         surveyContainer.classList.add('hidden');
